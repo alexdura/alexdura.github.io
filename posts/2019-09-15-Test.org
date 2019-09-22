@@ -1,0 +1,15 @@
+---
+title: the things you are looking for are gone for good
+---
+* Section
+** Subsection
+
+*** Test equation
+\begin{equation}
+\sum_{i=0}^{n} i^2 = \frac{n(n+1)(2n + 1)}{6}
+\end{equation}
+
+*** Test source code
+#+BEGIN_SRC
+Some source code
+#+END_SRC
