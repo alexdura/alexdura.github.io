@@ -28,22 +28,28 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
-    -- match "publications/*" $ do
-    --   route idRoute
-    --   compile copyFileCompiler
+    match "publications/*.pdf" $ do
+      route $ setExtension "html"
+      compile $ do
+        makeItem "" >>= loadAndApplyTemplate "templates/pub.html" pubCtx
+        >>= relativizeUrls
 
-    -- create ["publications.html"] $ do
-    --   route idRoute
-    --   compile $ do
-    --     publications <- recentFirst =<< loadAll "publications/*"
-    --     let publicationsCtx =
-    --           listField "publications" pubCtx (return publications) `mappend`
-    --           constField "title" "Publications" `mappend`
-    --           defaultContext
-    --     makeItem ""
-    --       >>= loadAndApplyTemplate "templates/publications.html" publicationsCtx
-    --       >>= loadAndApplyTemplate "templates/default.html" publicationsCtx
-    --       >>= relativizeUrls
+    match "publications/*.pdf" $ version "pdf" $ do
+      route $ idRoute
+      compile $ copyFileCompiler
+
+    create ["publications.html"] $ do
+      route idRoute
+      compile $ do
+        publications <- recentFirst =<< loadAll ("publications/*" .&&. hasNoVersion)
+        let publicationsCtx =
+              listField "publications" pubCtx (return publications) `mappend`
+              constField "title" "Publications" `mappend`
+              defaultContext
+        makeItem ""
+          >>= loadAndApplyTemplate "templates/publications.html" publicationsCtx
+          >>= loadAndApplyTemplate "templates/default.html" publicationsCtx
+          >>= relativizeUrls
 
 
     create ["archive.html"] $ do
@@ -65,8 +71,11 @@ main = hakyll $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
+            publications <- recentFirst =<< loadAll ("publications/*" .&&. hasNoVersion)
+
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
+                    listField "publications" pubCtx (return publications) `mappend`
                     constField "title" "Home"                `mappend`
                     defaultContext
 

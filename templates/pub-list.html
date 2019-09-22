@@ -1,8 +1,9 @@
 <ul>
     $for(publications)$
         <li>
-          <h4>$title$</h4>
-    	  $authors$
+          $date$ - <a href=$path$> $title$ </a> <br/>
+	  $author$ <br/>
+	  <i>$where$</i>
         </li>
     $endfor$
 </ul>
