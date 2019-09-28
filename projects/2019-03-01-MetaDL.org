@@ -1,0 +1,7 @@
+---
+title: MetaDL
+repo: https://github.com/lu-cs-sde/metadl
+---
+
+
+MetaDL is an extension of the Datalog language with syntactic patterns, to enable the analysis of Datalog programs inside Datalog. We are currently exploring ways to use the pattern syntax to analyze other programming languages and to express code transformations.
