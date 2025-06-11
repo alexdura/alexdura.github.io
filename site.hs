@@ -31,7 +31,7 @@ main = hakyllWith config $ do
     match (fromList ["about.rst", "contact.markdown"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= loadAndApplyTemplate "templates/default.html" copyrightCtx
             >>= relativizeUrls
 
     match "posts/*" $ do
@@ -58,7 +58,7 @@ main = hakyllWith config $ do
         let publicationsCtx =
               listField "publications" pubCtx (return publications) `mappend`
               constField "title" "Publications" `mappend`
-              defaultContext
+              copyrightCtx
         makeItem ""
           >>= loadAndApplyTemplate "templates/publications.html" publicationsCtx
           >>= loadAndApplyTemplate "templates/default.html" publicationsCtx
@@ -77,7 +77,7 @@ main = hakyllWith config $ do
         let projectsCtx =
               listField "projects" pubCtx (return projects) `mappend`
               constField "title" "Projects" `mappend`
-              defaultContext
+              copyrightCtx
         makeItem ""
           >>= loadAndApplyTemplate "templates/projects.html" projectsCtx
           >>= loadAndApplyTemplate "templates/default.html" projectsCtx
@@ -91,7 +91,7 @@ main = hakyllWith config $ do
             let archiveCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Archives"            `mappend`
-                    defaultContext
+                    copyrightCtx
 
             makeItem ""
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -111,7 +111,7 @@ main = hakyllWith config $ do
                     listField "publications" pubCtx (return publications) `mappend`
                     listField "projects" pubCtx (return projects) `mappend`
                     constField "title" "Alexandru Dura" `mappend`
-                    defaultContext
+                    copyrightCtx
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
@@ -122,15 +122,20 @@ main = hakyllWith config $ do
 
 
 --------------------------------------------------------------------------------
+copyrightCtx :: Context String
+copyrightCtx =
+  constField "copyrightdate" "2025" `mappend`
+  defaultContext
+
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
-    defaultContext
+    copyrightCtx
 
 pubCtx :: Context String
 pubCtx =
   dateField "date" "%Y" `mappend`
-  defaultContext
+  copyrightCtx
 
 pandocOptions :: WriterOptions
 pandocOptions = defaultHakyllWriterOptions{ writerHTMLMathMethod = MathJax "" }
