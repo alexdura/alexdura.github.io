@@ -100,7 +100,7 @@ main = hakyll $ do
                     listField "posts" postCtx (return posts) `mappend`
                     listField "publications" pubCtx (return publications) `mappend`
                     listField "projects" pubCtx (return projects) `mappend`
-                    constField "title" "Home"                `mappend`
+                    constField "title" "Alexandru Dura" `mappend`
                     defaultContext
 
             getResourceBody
