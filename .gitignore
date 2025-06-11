@@ -18,6 +18,8 @@ cabal.sandbox.config
 *.eventlog
 .stack-work/
 cabal.project.local
+_cache/
 
 # Emacs
 *~
+\#*\#
