@@ -1,0 +1,5 @@
+<article>
+    <section>
+        <p>JavaDL is a programming language and a runtime for defining static bug checkers for Java. It is an extension of Datalog with syntactic patterns and semantic predicates. The runtime supports alternative evaluation modes: incremental and exhaustive.</p>
+    </section>
+</article>
